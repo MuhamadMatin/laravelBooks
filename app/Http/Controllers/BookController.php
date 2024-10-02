@@ -101,10 +101,13 @@ class BookController extends Controller
 
                 $validated['image'] = $image_path;
             }
+            if (!$request->has('show')) {
+                $validated['show'] = false;
+            }
             $validated['user_id'] = $book->user_id;
 
             $book->update($validated);
-            return redirect()->route('admin.books.index');
+            return redirect()->route('admin.books.show', $book->id);
         } catch (\Throwable $e) {
             return redirect()->route('admin.books.edit', $book)->withErrors($e->getMessage());
         }

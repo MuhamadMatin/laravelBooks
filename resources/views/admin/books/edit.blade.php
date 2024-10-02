@@ -19,8 +19,14 @@
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                 </div>
                 <div>
+                    <x-label for="slug" :value="__('Slug')" />
+                    <x-input id="slug" class="block w-full mt-1" type="text" name="slug"
+                        value="{{ $book->slug }}" required autofocus autocomplete="slug" />
+                    {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
+                </div>
+                <div>
                     <x-label for="image" :value="__('Image')" />
-                    <img class="h-80" src="{{ $book->image }}" alt="">
+                    <img class="h-80" src="{{ Storage::url($book->image) ?? $book->image }}" alt="">
                     <x-input id="image" class="block w-full mt-1" type="file" name="image" :value="old('image')"
                         autofocus autocomplete="image" />
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
@@ -29,7 +35,10 @@
                     <x-label for="category" :value="__('Category')" />
                     <select id="category" name="category_id" class="block w-full mt-1">
                         @foreach ($categories as $category)
-                            <option selected value="{{ $book->category_id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}"
+                                {{ $book->category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
                         @endforeach
                     </select>
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
@@ -37,8 +46,8 @@
                 <div>
                     <x-label for="show" :value="__('Show')" />
                     <label class="flex items-center mt-1">
-                        <input id="show" type="checkbox" name="show" class="toggle-checkbox"
-                            value="{{ $book->show }}" />
+                        <input id="show" type="checkbox" name="show" class="toggle-checkbox" value="1"
+                            {{ $book->show ? 'checked' : '' }} />
                         <span class="ml-2">Show</span>
                     </label>
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}

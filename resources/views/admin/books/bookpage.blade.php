@@ -4,7 +4,7 @@
             class="relative overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-200 rounded-lg shadow-md group min-h-fit">
             <!-- Image -->
             <img class="object-cover w-full transition-all duration-300 ease-in-out h-80 lg:group-hover:h-full group-active:h-full"
-                src="{{ $book->image }}" alt="{{ $book->name }}">
+                src="{{ $book->image ?? Storage::url($book->image) }}" alt="{{ $book->name }}">
             <div
                 class="absolute inset-0 flex flex-col justify-center p-5 py-5 transition-opacity duration-300 bg-white opacity-0 bg-opacity-90 lg:group-hover:opacity-100 group-active:opacity-100">
                 <h5 class="font-semibold tracking-tight text-gray-900">{{ $book->name }}</h5>
