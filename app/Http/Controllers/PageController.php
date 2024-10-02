@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Page;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdatePageRequest;
 
 class PageController extends Controller
 {
@@ -48,15 +51,28 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        $books = Book::all();
+        return view('admin.books.page.edit', [
+            'page' => $page,
+            'books' => $books,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Page $page)
+    public function update(UpdatePageRequest $request, Page $page)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $validated['slug'] = Str::slug($validated['name']);
+            // $validated['user_id'] = $page->book->user_id;
+
+            $page->update($validated);
+            return redirect()->route('admin.books.index');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.page.edit', $page->id)->withErrors($e->getMessage());
+        }
     }
 
     /**

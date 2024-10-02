@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('desk');
-            $table->string('image');
-            $table->boolean('show');
+            $table->string('image')->nullable();
+            $table->boolean('show')->default(false);
             $table->foreignIdFor(Category::class)
                 ->constrained()
                 ->cascadeOnDelete();

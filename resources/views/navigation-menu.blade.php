@@ -12,10 +12,13 @@
                     {{ __('Books') }}
                 </x-nav-link>
                 <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
-                    {{ __('Category') }}
+                    {{ __('Manage Category') }}
+                </x-nav-link>
+                <x-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')">
+                    {{ __('Manage Books') }}
                 </x-nav-link>
                 <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
-                    {{ __('Users') }}
+                    {{ __('Manage Users') }}
                 </x-nav-link>
             </span>
         </div>

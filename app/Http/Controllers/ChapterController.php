@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Chapter;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateChapterRequest;
 
 class ChapterController extends Controller
 {
@@ -51,15 +53,30 @@ class ChapterController extends Controller
      */
     public function edit(Chapter $chapter)
     {
-        //
+        $books = Book::all();
+        return view(
+            'admin.books.chapter.edit',
+            [
+                'chapter' => $chapter,
+                'books' => $books,
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Chapter $chapter)
+    public function update(UpdateChapterRequest $request, Chapter $chapter)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $validated['slug'] = Str::slug($validated['name']);
+
+            $chapter->update($validated);
+            return redirect()->route('admin.books.index', $chapter->book_id);
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.chapter.edit', $chapter->id)->withErrors($e);
+        }
     }
 
     /**

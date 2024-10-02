@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
 {
@@ -13,11 +16,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all()->sortByDesc('id');
-        $categories = Category::all();
-        return view('books.index', [
+        $books = Book::orderBy('id', 'DESC')->paginate(15);
+        return view('admin.books.index', [
             'books' => $books,
-            'categories' => $categories,
         ]);
     }
 
@@ -26,15 +27,37 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.add');
+        $categories = Category::all();
+        return view('admin.books.add', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        //
+        try {
+            $user_id = auth()->user()->id;
+            $validated = $request->validated();
+            $validated['user_id'] = $user_id;
+            $validated['slug'] = Str::slug($validated['name']);
+            if ($request->hasFile('image')) {
+                $originalName = $request->file('image')
+                    ->getClientOriginalName();
+
+                $image_path = $request->file('image')
+                    ->storeAs('image-books', $originalName, 'public');
+
+                $validated['image'] = $image_path;
+            }
+
+            Book::create($validated);
+            return redirect()->route('admin.books.index');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.books.create')->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -44,7 +67,7 @@ class BookController extends Controller
     {
         $book->load('chapters.pages');
 
-        return view('books.show', [
+        return view('admin.books.show', [
             'book' => $book,
         ]);
     }
@@ -54,15 +77,37 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('books.edit');
+        $categories = Category::all();
+        return view('admin.books.edit', [
+            'book' => $book,
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $validated['slug'] = Str::slug($validated['name']);
+            if ($request->hasFile('image')) {
+                $originalName = $request->file('image')
+                    ->getClientOriginalName();
+
+                $image_path = $request->file('image')
+                    ->storeAs('image-books', $originalName, 'public');
+
+                $validated['image'] = $image_path;
+            }
+            $validated['user_id'] = $book->user_id;
+
+            $book->update($validated);
+            return redirect()->route('admin.books.index');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.books.edit', $book)->withErrors($e->getMessage());
+        }
     }
 
     /**

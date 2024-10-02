@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Page;
+use App\Models\Chapter;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -20,6 +22,16 @@ class IndexController extends Controller
             'newBooks' => $newBooks,
             'categories' => $categories,
             'comings' => $comings
+        ]);
+    }
+
+    public function home()
+    {
+        $books = Book::all()->sortByDesc('id');
+        $categories = Category::all();
+        return view('books.index', [
+            'books' => $books,
+            'categories' => $categories,
         ]);
     }
 
@@ -42,9 +54,33 @@ class IndexController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function indexShowBook(Book $book)
     {
-        //
+        $book->load('chapters.pages');
+
+        return view('books.show', [
+            'book' => $book,
+        ]);
+    }
+
+    public function indexShowChapter($book, Chapter $chapter)
+    {
+        $book = Book::where('slug', $book)->firstOrFail()
+            ->load('pages');
+
+        return view('books.chapter.show', [
+            'book' => $book,
+            'chapter' => $chapter,
+        ]);
+    }
+
+    public function indexShowPage($book, $chapter, Page $page)
+    {
+        return view('books.page.show', [
+            'book' => $book,
+            'chapter' => $chapter,
+            'page' => $page,
+        ]);
     }
 
     /**
