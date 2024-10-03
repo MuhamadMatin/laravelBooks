@@ -13,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pages', function (Blueprint $table) {
-            // $table->foreignIdFor(Chapter::class)
-            //     ->nullable()
-            //     ->constrained()
-            //     ->cascadeOnDelete();
+            $table->foreignIdFor(Chapter::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 

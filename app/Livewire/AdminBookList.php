@@ -33,7 +33,8 @@ class AdminBookList extends Component
     #[Computed()]
     public function books()
     {
-        return Book::where('name', 'like', '%' . $this->search . '%')
+        return Book::orderBy('id', 'DESC')
+            ->where('name', 'like', '%' . $this->search . '%')
             ->paginate(10);
     }
 

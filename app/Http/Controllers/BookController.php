@@ -118,6 +118,15 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        try {
+            $bookNotFound = Book::find($book)->first();
+            if (!$bookNotFound) {
+                return redirect()->route('admin.categories.index')->withErrors('Book not found');
+            }
+            $book->delete();
+            return redirect()->route('admin.books.index');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.books.show', $book->id)->withErrors('Book not found');
+        }
     }
 }

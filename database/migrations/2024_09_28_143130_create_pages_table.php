@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->text('body');
+            $table->longText('body');
             $table->foreignIdFor(Book::class)
                 ->constrained()
                 ->cascadeOnDelete();

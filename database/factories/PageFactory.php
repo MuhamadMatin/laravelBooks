@@ -25,8 +25,8 @@ class PageFactory extends Factory
             'name' => $title,
             'slug' => $slug,
             // 'book_id' => Book::inRandomOrder()->first()->id,
-            // 'chapter_id' => Chapter::inRandomOrder()->first()->id,
-            'body' => $this->faker->paragraph(10)
+            'chapter_id' => Chapter::inRandomOrder()->first()->id,
+            'body' => $this->faker->paragraph(100, true)
         ];
     }
 }
