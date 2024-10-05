@@ -34,7 +34,7 @@ class BookList extends Component
     public function books()
     {
         return Book::where('name', 'like', '%' . $this->search . '%')
-            ->paginate(8);
+            ->paginate(20);
     }
 
     public function render()

@@ -23,7 +23,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.books.page.add');
     }
 
     /**

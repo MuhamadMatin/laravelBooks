@@ -19,6 +19,6 @@
     <livewire:search />
     @include('admin.books.bookpage', ['books' => $this->books])
     <div class="my-3">
-        {{ $this->books->onEachSide(1)->links() }}
+        {{ $this->books->onEachSide(1)->links(data: ['scrollTo' => false]) }}
     </div>
 </div>

@@ -19,6 +19,6 @@
     <livewire:search />
     @include('admin.users.userpage', ['users' => $this->users])
     <div class="my-3">
-        {{ $this->users->onEachSide(1)->links() }}
+        {{ $this->users->onEachSide(1)->links(data: ['scrollTo' => false]) }}
     </div>
 </div>

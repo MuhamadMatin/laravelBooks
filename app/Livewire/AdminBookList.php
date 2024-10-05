@@ -33,13 +33,33 @@ class AdminBookList extends Component
     #[Computed()]
     public function books()
     {
-        return Book::orderBy('id', 'DESC')
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->paginate(10);
+        $query = Book::query();
+
+        if (auth()->user()->hasRole('admin|Admin')) {
+            $query->orderBy('id', 'DESC');
+        }
+
+        if (auth()->user()->hasRole('editor|Editor')) {
+            $user_id = auth()->user()->id;
+            $query->where('user_id', $user_id)
+                ->orderBy('id', 'DESC');
+        }
+
+        if (auth()->user()->hasRole('user|User')) {
+            $this->redirect('/');
+        }
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%');
+        }
+
+        return $query->paginate(15);
     }
 
     public function render()
     {
-        return view('livewire.admin-book-list');
+        return view('livewire.admin-book-list', [
+            'books' => $this->books(),
+        ]);
     }
 }

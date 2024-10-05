@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
         User::factory(20)->create();
         Category::factory(5)->create();
         Book::factory(1500)->create()->each(function ($book) {
@@ -32,58 +33,5 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
-
-        $adminRole = Role::create([
-            'name' => 'admin'
-        ]);
-
-        $editorRole = Role::create([
-            'name' => 'editor'
-        ]);
-
-        $userRole = Role::create([
-            'name' => 'user'
-        ]);
-
-        $users = [
-            [
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => bcrypt('admin'),
-                'roles' => $adminRole,
-            ],
-            [
-                'name' => 'editor',
-                'email' => 'editor@gmail.com',
-                'password' => bcrypt('editor'),
-                'roles' => $editorRole,
-            ],
-            [
-                'name' => 'user1',
-                'email' => 'user1@gmail.com',
-                'password' => bcrypt('user1'),
-                'roles' => $userRole,
-            ],
-            [
-                'name' => 'user2',
-                'email' => 'user2@gmail.com',
-                'password' => bcrypt('user2'),
-                'roles' => $userRole,
-            ],
-            [
-                'name' => 'user3',
-                'email' => 'user3@gmail.com',
-                'password' => bcrypt('user3'),
-                'roles' => $userRole,
-            ],
-        ];
-
-        foreach ($users as $user) {
-            User::factory()->create([
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'password' => $user['password'],
-            ])->assignRole($user['roles']);
-        }
     }
 }

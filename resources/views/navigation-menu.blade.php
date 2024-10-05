@@ -11,15 +11,20 @@
                 <x-nav-link href="{{ route('books.index') }}" :active="request()->routeIs('books.index')">
                     {{ __('Books') }}
                 </x-nav-link>
-                @role('admin')
-                    <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
-                        {{ __('Manage Category') }}
-                    </x-nav-link>
+                @role('Admin|admin|Editor|editor')
                     <x-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')">
                         {{ __('Manage Books') }}
                     </x-nav-link>
+                @endrole
+                @role('Admin|admin')
+                    <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
+                        {{ __('Manage Category') }}
+                    </x-nav-link>
                     <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
                         {{ __('Manage Users') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')">
+                        {{ __('Manage Roles') }}
                     </x-nav-link>
                 @endrole
             </span>

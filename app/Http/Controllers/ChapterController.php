@@ -23,7 +23,7 @@ class ChapterController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.books.chapter.add');
     }
 
     /**

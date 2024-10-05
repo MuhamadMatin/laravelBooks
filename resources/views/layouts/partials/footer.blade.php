@@ -1,5 +1,6 @@
-<footer class="flex justify-around px-4 space-x-4 text-sm border-t border-gray-100 py-14 md:justify-evenly">
-    <div class="flex flex-col gap-5 md:flex-row w-fit">
+<footer
+    class="flex items-center space-x-4 text-sm border-t border-gray-100 justify-evenly md:gridpx-4 md:grid-rows-2 py-14">
+    <div class="flex flex-col gap-5 md:flex-row w-fit h-fit">
         <x-nav-link href="{{ route('index') }}" :active="request()->routeIs('index')">
             {{ __('About') }}
         </x-nav-link>
@@ -16,7 +17,7 @@
             {{ __('About') }}
         </x-nav-link>
     </div>
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col items-center gap-3 mt-5 md:mt-0 md:flex-row">
         <a href="" class="flex gap-x-1">
             <svg class="w-5 h-5 fill-black" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
