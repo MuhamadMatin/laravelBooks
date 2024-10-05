@@ -14,7 +14,7 @@ class Search extends Component
         $this->dispatch('search', search: $this->search);
     }
 
-    #[On('search-reset')]
+    #[On('resetAll')]
     public function resetSearch()
     {
         $this->search = '';

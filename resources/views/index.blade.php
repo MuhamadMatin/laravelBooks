@@ -13,6 +13,7 @@
     @endsection
     <main class="container p-6 mx-auto">
         @include('books.category', ['categories' => $categories])
+        {{-- <livewire:category-list> --}}
         @if ($newBooks)
             <div class="py-5">
                 <h1 class="my-3 text-3xl font-semibold">New Arrival Books</h1>
