@@ -10,16 +10,20 @@
                     <h4 class="text-2xl font-semibold tracking-tight text-gray-900">{{ $book->name }}</h4>
                     <span class="flex items-center mt-4 gap-x-5">
                         <h5 class="text-gray-800">{{ $book->User->name }}</h5>
-                        <a wire:navigate href="{{ route('admin.books.edit', $book) }}"
-                            class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Book
-                        </a>
-                        <form action="{{ route('admin.books.destroy', $book) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="px-3 py-2 font-bold text-red-700 border-2 rounded-full">
-                                Delete
-                            </button>
-                        </form>
+                        @can('edit_book')
+                            <a wire:navigate href="{{ route('admin.books.edit', $book) }}"
+                                class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Book
+                            </a>
+                        @endcan
+                        @can('delete_book')
+                            <form action="{{ route('admin.books.destroy', $book) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-3 py-2 font-bold text-red-700 border-2 rounded-full">
+                                    Delete
+                                </button>
+                            </form>
+                        @endcan
                         <label class="flex items-center gap-1">
                             @if (!$book->show)
                                 <svg class="w-4 h-4" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -54,15 +58,19 @@
         <!-- Chapter dan Pages -->
         <div class="mt-8">
             <span class="flex items-center gap-x-5">
-                <h2 class="text-2xl font-semibold">Chapters</h2>
-                <a wire:navigate href="{{ route('admin.chapter.create') }}"
-                    class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
-                    Chapter
-                </a>
-                <a wire:navigate href="{{ route('admin.page.create') }}"
-                    class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
-                    page
-                </a>
+                @can('create_chapter')
+                    <h2 class="text-2xl font-semibold">Chapters</h2>
+                    <a wire:navigate href="{{ route('admin.chapter.create') }}"
+                        class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
+                        Chapter
+                    </a>
+                @endcan
+                @can('create_page')
+                    <a wire:navigate href="{{ route('admin.page.create') }}"
+                        class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
+                        page
+                    </a>
+                @endcan
             </span>
             <div class="mt-4">
                 @forelse ($book->chapters as $chapter)
@@ -75,9 +83,11 @@
                                 ]) }}">
                                 <h3 class="text-xl font-bold text-gray-900">{{ $chapter->name }}</h3>
                             </a>
-                            <a wire:navigate href="{{ route('admin.chapter.edit', $chapter) }}"
-                                class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Chapter
-                            </a>
+                            @can('edit_chapter')
+                                <a wire:navigate href="{{ route('admin.chapter.edit', $chapter) }}"
+                                    class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Chapter
+                                </a>
+                            @endcan
                         </span>
                         <ul class="ml-4 list-disc list-inside">
                             @forelse ($chapter->pages as $page)
@@ -89,10 +99,12 @@
                                             'page' => $page->slug,
                                         ]) }}">
                                         <li class="text-gray-700">{{ $page->name }}</li>
-                                        <a wire:navigate href="{{ route('admin.page.edit', $page) }}"
-                                            class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit
-                                            Page
-                                        </a>
+                                        @can('edit_page')
+                                            <a wire:navigate href="{{ route('admin.page.edit', $page) }}"
+                                                class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit
+                                                Page
+                                            </a>
+                                        @endcan
                                     </a>
                                 </span>
                             @empty
