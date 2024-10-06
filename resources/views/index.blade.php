@@ -13,11 +13,20 @@
     @endsection
     <main class="container p-6 mx-auto">
         @include('books.category', ['categories' => $categories])
-        {{-- <livewire:category-list> --}}
         @if ($newBooks)
             <div class="py-5">
                 <h1 class="my-3 text-3xl font-semibold">New Arrival Books</h1>
                 @include('books.bookpage', ['books' => $newBooks])
+                <a wire:navigate
+                    class="block px-3 py-2 mx-auto mt-10 text-lg font-semibold text-center text-gray-800 transition duration-150 ease-in-out border-b-2 border-gray-300 w-fit hover:text-gray-700 hover:border-indigo-700"
+                    href="{{ route('books.index') }}">Let's Read Another Amazing Books
+                </a>
+            </div>
+        @endif
+        @if ($mostLikes)
+            <div class="py-5">
+                <h1 class="my-3 text-3xl font-semibold">Most Likes Books</h1>
+                @include('books.bookpage', ['books' => $mostLikes])
                 <a wire:navigate
                     class="block px-3 py-2 mx-auto mt-10 text-lg font-semibold text-center text-gray-800 transition duration-150 ease-in-out border-b-2 border-gray-300 w-fit hover:text-gray-700 hover:border-indigo-700"
                     href="{{ route('books.index') }}">Let's Read Another Amazing Books

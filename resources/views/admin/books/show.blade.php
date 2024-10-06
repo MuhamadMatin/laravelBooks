@@ -9,6 +9,7 @@
                 <div class="p-5 md:w-2/3">
                     <h4 class="text-2xl font-semibold tracking-tight text-gray-900">{{ $book->name }}</h4>
                     <span class="flex items-center mt-4 gap-x-5">
+                        <livewire:like-book :key="$book->id" :book="$book" />
                         <h5 class="text-gray-800">{{ $book->User->name }}</h5>
                         @can('edit_book')
                             <a wire:navigate href="{{ route('admin.books.edit', $book) }}"

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreChapterRequest;
 use App\Models\Book;
 use App\Models\Chapter;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateChapterRequest;
@@ -23,15 +25,39 @@ class ChapterController extends Controller
      */
     public function create()
     {
-        return view('admin.books.chapter.add');
+        $query = Book::query();
+
+        if (auth()->user()->hasRole('admin|Admin')) {
+            $books = $query->orderBy('id', 'DESC')->get();
+        }
+
+        if (auth()->user()->hasRole('editor|Editor')) {
+            $user_id = auth()->user()->id;
+            $books = $query->where('user_id', $user_id)
+                ->orderBy('id', 'DESC')->get();
+        }
+
+        // Return view dengan data buku
+        return view('admin.books.chapter.add', [
+            'books' => $books,
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreChapterRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $validated['slug'] = Str::slug($validated['name']);
+
+            Chapter::create($validated);
+            return redirect()->route('admin.books.index');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.chapter.add')->withErrors($e);
+        }
     }
 
     /**

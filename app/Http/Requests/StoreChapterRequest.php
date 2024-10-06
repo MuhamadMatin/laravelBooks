@@ -23,7 +23,7 @@ class StoreChapterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['string', 'unique:chapters,slug', 'max:255'],
+            // 'slug' => ['string', 'unique:chapters,slug', 'max:255'],
             'book_id' => ['required', 'integer', 'exists:books,id'],
         ];
     }

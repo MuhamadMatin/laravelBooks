@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePageRequest;
 use App\Models\Book;
 use App\Models\Page;
 use Illuminate\Support\Str;
@@ -23,15 +24,38 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('admin.books.page.add');
+        $query =  Book::with('chapters');
+
+        if (auth()->user()->hasRole('admin|Admin')) {
+            $books = $query->orderBy('id', 'DESC')->get();
+        }
+
+        if (auth()->user()->hasRole('editor|Editor')) {
+            $user_id = auth()->user()->id;
+            $books = $query->where('user_id', $user_id)
+                ->orderBy('id', 'DESC')->get();
+        }
+
+        return view('admin.books.page.add', [
+            'books' => $books,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePageRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+            $validated['slug'] = Str::slug($validated['name']);
+            // $validated['user_id'] = $page->book->user_id;
+
+            Page::create($validated);
+            return redirect()->route('admin.books.index');
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.page.add')->withErrors($e->getMessage());
+        }
     }
 
     /**

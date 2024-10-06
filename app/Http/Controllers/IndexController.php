@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Page;
 use App\Models\Chapter;
 use App\Models\Category;
+use App\Models\LikeBook;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -15,13 +16,19 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $newBooks = Book::orderByDesc('created_at')->limit(8)->get();
         $categories = Category::all();
-        $comings = Book::where('show', false)->limit(10)->get();
+        $newBooks = Book::orderByDesc('created_at')
+            ->limit(8)->get();
+        $mostLikes = Book::withCount('Likes')
+            ->orderBy('likes_count')
+            ->limit(10)->get();
+        $comings = Book::where('show', false)
+            ->limit(10)->get();
         return view('index', [
             'newBooks' => $newBooks,
             'categories' => $categories,
-            'comings' => $comings
+            'comings' => $comings,
+            'mostLikes' => $mostLikes,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -40,5 +41,10 @@ class Book extends Model
     public function User(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function Likes(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'like_books')->withTimestamps();
     }
 }

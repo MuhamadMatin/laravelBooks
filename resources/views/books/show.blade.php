@@ -7,7 +7,10 @@
                     <img class="object-cover w-full h-full" src="{{ $book->image }}" alt="{{ $book->name }}">
                 </div>
                 <div class="p-5 md:w-2/3">
-                    <h4 class="text-2xl font-semibold tracking-tight text-gray-900">{{ $book->name }}</h4>
+                    <span class="flex gap-x-4">
+                        <h4 class="text-2xl font-semibold tracking-tight text-gray-900">{{ $book->name }}</h4>
+                        <livewire:like-book :key="$book->id" :book="$book" />
+                    </span>
                     <h5 class="mt-4 text-gray-800">{{ $book->User->name }}</h5>
                     <p class="mt-2 text-gray-700">{{ $book->desk }}</p>
                 </div>

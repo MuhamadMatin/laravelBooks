@@ -71,4 +71,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class);
     }
+
+    public function LikedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'like_books')->withTimestamps();
+    }
+
+    public function hasLiked(Book $book)
+    {
+        return $this->LikedBooks()->where('book_id', $book->id)->exists();
+    }
 }
