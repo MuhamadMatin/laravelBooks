@@ -38,15 +38,11 @@ class DatabaseSeeder extends Seeder
 
         foreach ($books as $book) {
             $numberLikes = rand(100, 300);
+            $usersLike = $users->random($numberLikes);
 
-            $usersLike = $users->random(min($numberLikes, $users->count()));
-
-            foreach ($usersLike as $user) {
-                LikeBook::create([
-                    'user_id' => $user->id,
-                    'book_id' => $book->id,
-                ]);
-            }
+            $book->Likes()->attach(
+                $usersLike->pluck('id')->toArray()
+            );
         }
     }
 }

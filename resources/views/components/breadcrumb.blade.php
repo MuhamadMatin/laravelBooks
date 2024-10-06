@@ -1,6 +1,6 @@
 <nav class="mb-4 text-sm text-gray-500" aria-label="Breadcrumb">
     <!-- Wrapper untuk breadcrumb dengan overflow-x-auto -->
-    <ol class="flex items-center space-x-1 overflow-hidden overflow-x-auto md:space-x-3 whitespace-nowrap">
+    <ol class="flex items-center space-x-1 overflow-hidden overflow-x-auto md:space-x-3 whitespace-nowrap no-scrollbar">
         {{-- Home Link --}}
         <li class="flex items-center">
             <a wire:navigate href="{{ route('index') }}">

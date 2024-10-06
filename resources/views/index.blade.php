@@ -39,7 +39,8 @@
                 @forelse ($comings as $coming)
                     <div class="overflow-hidden bg-white border border-gray-200 rounded-lg shadow-md group min-h-fit">
                         <!-- Image -->
-                        <img class="object-cover w-full h-80" src="{{ $coming->image }}" alt="{{ $coming->name }}">
+                        <img class="object-cover w-full h-80" src="{{ $coming->image }}" alt="{{ $coming->name }}"
+                            loading="lazy">
                     </div>
                 @empty
                     <p class="text-center text-gray-500">Book empty</p>

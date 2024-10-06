@@ -19,7 +19,7 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased no-scrollbar">
     <x-banner />
 
     @include('layouts.partials.header')

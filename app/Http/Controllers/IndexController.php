@@ -8,6 +8,7 @@ use App\Models\Chapter;
 use App\Models\Category;
 use App\Models\LikeBook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class IndexController extends Controller
 {
@@ -19,11 +20,22 @@ class IndexController extends Controller
         $categories = Category::all();
         $newBooks = Book::orderByDesc('created_at')
             ->limit(8)->get();
-        $mostLikes = Book::withCount('Likes')
-            ->orderBy('likes_count')
-            ->limit(10)->get();
+        $mostLikedBookIds = LikeBook::select('book_id')
+            ->groupBy('book_id')
+            ->orderByRaw('COUNT(book_id) DESC')
+            ->limit(10)
+            ->pluck('book_id');
+        $mostLikes = Book::whereIn('id', $mostLikedBookIds)
+            ->withCount('Likes')
+            ->orderByDesc('likes_count')
+            ->get();
         $comings = Book::where('show', false)
             ->limit(10)->get();
+        // $mostLikes = Cache::remember('most_liked_books', 1200, function () {
+        // return Book::withCount('Likes')
+        //     ->orderBy('likes_count', 'desc')
+        //     ->limit(10)->get();
+        // });
         return view('index', [
             'newBooks' => $newBooks,
             'categories' => $categories,

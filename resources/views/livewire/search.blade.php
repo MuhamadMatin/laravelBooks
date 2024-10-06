@@ -8,6 +8,6 @@
         </span>
         <input wire:model.live.debounce.300ms="search"
             class="ml-1 text-xs text-gray-800 bg-transparent border-none outline-none w-52 focus:outline-none focus:border-none focus:ring-0 placeholder:text-gray-400"
-            type="search" placeholder="Search">
+            type="text" placeholder="Search in here">
     </div>
 </div>

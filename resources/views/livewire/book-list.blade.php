@@ -13,14 +13,18 @@
                     </g>
                 </svg>
             </button>
-            <span class="flex items-center gap-x-2">
-                @if ($search)
-                    Searcing {{ $search }}
-                @endif
-                @if ($category)
-                    Category: {{ $this->books->first()->category->name ?? 'Unknown' }}
-                @endif
-            </span>
+            <div class="flex flex-col gap-x-2">
+                <span>
+                    @if ($search)
+                        Searcing: {{ $search }}
+                    @endif
+                </span>
+                <span>
+                    @if ($category)
+                        Category: {{ $this->books->first()->category->name ?? 'Unknown' }}
+                    @endif
+                </span>
+            </div>
         </div>
     @endif
     <livewire:search />
