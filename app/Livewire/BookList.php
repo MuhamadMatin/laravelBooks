@@ -35,8 +35,8 @@ class BookList extends Component
 
     public function resetAll()
     {
-        $this->search = '';
-        $this->category = '';
+        $this->reset('search');
+        $this->reset('category');
         $this->resetPage();
         $this->dispatch('resetAll');
     }

@@ -16,12 +16,6 @@ class CategoryList extends Component
         $this->dispatch('category', category: $this->category);
     }
 
-    #[On('resetAll')]
-    public function resetCategory()
-    {
-        $this->category = '';
-    }
-
     public function render()
     {
         $categories = Category::all();
