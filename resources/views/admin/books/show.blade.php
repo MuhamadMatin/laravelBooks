@@ -3,8 +3,7 @@
         <div class="overflow-hidden bg-white border border-gray-200 rounded-lg shadow-md">
             <div class="flex flex-col md:flex-row">
                 <div class="md:w-1/3">
-                    <img class="object-cover w-full h-full" src="{{ Storage::url($book->image) ?? $book->image }}"
-                        alt="{{ $book->name }}">
+                    <img class="object-cover w-full h-full" src="{{ $book->getImage() }}" alt="{{ $book->name }}">
                 </div>
                 <div class="p-5 md:w-2/3">
                     <h4 class="text-2xl font-semibold tracking-tight text-gray-900">{{ $book->name }}</h4>
@@ -59,17 +58,11 @@
         <!-- Chapter dan Pages -->
         <div class="mt-8">
             <span class="flex items-center gap-x-5">
+                <h2 class="text-2xl font-semibold">Chapters</h2>
                 @can('create_chapter')
-                    <h2 class="text-2xl font-semibold">Chapters</h2>
-                    <a wire:navigate href="{{ route('admin.chapter.create') }}"
+                    <a wire:navigate href="{{ route('admin.books.chapters.create', $book) }}"
                         class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
                         Chapter
-                    </a>
-                @endcan
-                @can('create_page')
-                    <a wire:navigate href="{{ route('admin.page.create') }}"
-                        class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
-                        page
                     </a>
                 @endcan
             </span>
@@ -85,8 +78,22 @@
                                 <h3 class="text-xl font-bold text-gray-900">{{ $chapter->name }}</h3>
                             </a>
                             @can('edit_chapter')
-                                <a wire:navigate href="{{ route('admin.chapter.edit', $chapter) }}"
+                                <a wire:navigate
+                                    href="{{ route('admin.books.chapters.edit', [
+                                        'book' => $book,
+                                        'chapter' => $chapter,
+                                    ]) }}"
                                     class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Chapter
+                                </a>
+                            @endcan
+                            @can('create_page')
+                                <a wire:navigate
+                                    href="{{ route('admin.books.chapters.pages.create', [
+                                        'book' => $book,
+                                        'chapter' => $chapter,
+                                    ]) }}"
+                                    class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
+                                    page
                                 </a>
                             @endcan
                         </span>
@@ -100,16 +107,32 @@
                                             'page' => $page->slug,
                                         ]) }}">
                                         <li class="text-gray-700">{{ $page->name }}</li>
-                                        @can('edit_page')
-                                            <a wire:navigate href="{{ route('admin.page.edit', $page) }}"
-                                                class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit
-                                                Page
-                                            </a>
-                                        @endcan
                                     </a>
+                                    @can('edit_page')
+                                        <a wire:navigate
+                                            href="{{ route('admin.books.chapters.pages.edit', [
+                                                'book' => $book,
+                                                'chapter' => $chapter,
+                                                'page' => $page,
+                                            ]) }}"
+                                            class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Page
+                                        </a>
+                                    @endcan
                                 </span>
                             @empty
-                                <li class="text-gray-500">No pages in this chapter.</li>
+                                <span class="flex items-center gap-x-5">
+                                    <li class="text-gray-500">No pages in this chapter.</li>
+                                    @can('create_page')
+                                        <a wire:navigate
+                                            href="{{ route('admin.books.chapters.pages.create', [
+                                                'book' => $book,
+                                                'chapter' => $chapter,
+                                            ]) }}"
+                                            class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
+                                            page
+                                        </a>
+                                    @endcan
+                                </span>
                             @endforelse
                         </ul>
                     </div>

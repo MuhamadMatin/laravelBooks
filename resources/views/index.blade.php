@@ -2,7 +2,7 @@
     @section('hero')
         <div class="w-full py-32 text-center h-92">
             <h1 class="text-2xl font-bold text-center text-gray-700 md:text-3xl lg:text-5xl">
-                Welcome to <span class="text-indigo-700">science recipe</span>
+                Welcome To <span class="text-indigo-700">Recipe Science</span>
             </h1>
             <p class="mt-1 text-lg text-gray-500">Best website to upgrade your knowledge</p>
             <a wire:navigate

@@ -23,7 +23,7 @@ class StorePageRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['sometimes', 'string', 'unique:pages,slug,' . $this->page->id, 'max:255'],
+            'slug' => ['sometimes', 'string', 'unique:pages,slug', 'max:255'],
             'body' => ['required', 'string'],
             'chapter_id' => ['required', 'integer', 'exists:chapters,id'],
             'book_id' => ['required', 'integer', 'exists:books,id'],

@@ -8,6 +8,7 @@ use App\Models\Page;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdatePageRequest;
+use App\Models\Chapter;
 
 class PageController extends Controller
 {
@@ -22,22 +23,12 @@ class PageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Book $book, Chapter $chapter)
     {
-        $query =  Book::with('chapters');
-
-        if (auth()->user()->hasRole('admin|Admin')) {
-            $books = $query->orderBy('id', 'DESC')->get();
-        }
-
-        if (auth()->user()->hasRole('editor|Editor')) {
-            $user_id = auth()->user()->id;
-            $books = $query->where('user_id', $user_id)
-                ->orderBy('id', 'DESC')->get();
-        }
 
         return view('admin.books.page.add', [
-            'books' => $books,
+            'book' => $book,
+            'chapter' => $chapter,
         ]);
     }
 
@@ -54,7 +45,7 @@ class PageController extends Controller
             Page::create($validated);
             return redirect()->route('admin.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.page.add')->withErrors($e->getMessage());
+            return redirect()->route('admin.books.chapters.pages.create')->withErrors($e->getMessage());
         }
     }
 
@@ -73,19 +64,19 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Page $page)
+    public function edit(Book $book, Chapter $chapter, Page $page)
     {
-        $books = Book::all();
         return view('admin.books.page.edit', [
+            'book' => $book,
+            'chapter' => $chapter,
             'page' => $page,
-            'books' => $books,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePageRequest $request, Page $page)
+    public function update(UpdatePageRequest $request, Book $book, Chapter $chapter, Page $page)
     {
         try {
             $validated = $request->validated();
@@ -95,7 +86,7 @@ class PageController extends Controller
             $page->update($validated);
             return redirect()->route('admin.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.page.edit', $page->id)->withErrors($e->getMessage());
+            return redirect()->route('admin.books.chapters.pages.edit', $page)->withErrors($e->getMessage());
         }
     }
 

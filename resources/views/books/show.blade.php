@@ -4,7 +4,7 @@
         <div class="overflow-hidden bg-white border border-gray-200 rounded-lg shadow-md">
             <div class="flex flex-col md:flex-row">
                 <div class="md:w-1/3">
-                    <img class="object-cover w-full h-full" src="{{ $book->image }}" alt="{{ $book->name }}">
+                    <img class="object-cover w-full h-full" src="{{ $book->getImage() }}" alt="{{ $book->name }}">
                 </div>
                 <div class="p-5 md:w-2/3">
                     <span class="flex gap-x-4">
@@ -12,7 +12,7 @@
                         <livewire:like-book :key="$book->id" :book="$book" />
                     </span>
                     <h5 class="mt-4 text-gray-800">{{ $book->User->name }}</h5>
-                    <p class="mt-2 text-gray-700">{{ $book->desk }}</p>
+                    <p class="mt-2 text-gray-700 whitespace-normal">{{ $book->desk }}</p>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
 
         <form method="POST" action="{{ route('admin.books.store') }}" enctype="multipart/form-data">
             @csrf
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-2 gap-5 p-5 border-2 rounded-lg shadow-md">
                 <div>
                     <x-label for="name" :value="__('Name')" />
                     <x-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')"
@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <x-label for="category" :value="__('Category')" />
-                    <select id="category" name="category_id" class="block w-full mt-1">
+                    <select id="category" name="category_id" class="block w-full mt-1 rounded-lg">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach

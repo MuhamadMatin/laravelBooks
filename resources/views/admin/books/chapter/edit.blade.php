@@ -2,10 +2,15 @@
     <main class="container p-6 mx-auto">
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('admin.chapter.update', $chapter) }}" enctype="multipart/form-data">
+        <form method="POST"
+            action="{{ route('admin.books.chapters.update', [
+                'book' => $book,
+                'chapter' => $chapter,
+            ]) }}"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="grid gap-5 md:grid-cols-2">
+            <div class="grid gap-5 p-5 border-2 rounded-lg shadow-md md:grid-cols-2">
                 <div>
                     <x-label for="name" :value="__('Name')" />
                     <x-input id="name" class="block w-full mt-1" type="text" name="name"
@@ -14,12 +19,10 @@
                 </div>
                 <div>
                     <x-label for="book" :value="__('Book')" />
-                    <select id="book" name="book_id" class="block w-full mt-1">
-                        @foreach ($books as $book)
-                            <option value="{{ $book->id }}" {{ $chapter->book_id == $book->id ? 'selected' : '' }}>
-                                {{ $book->name }}
-                            </option>
-                        @endforeach
+                    <select id="book" name="book_id" class="block w-full mt-1 rounded-lg">
+                        <option value="{{ $book->id }}" {{ $chapter->book_id == $book->id ? 'selected' : '' }}>
+                            {{ $book->name }}
+                        </option>
                     </select>
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                 </div>

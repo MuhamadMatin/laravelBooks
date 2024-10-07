@@ -23,7 +23,7 @@ class UpdateChapterRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string', 'max:255'],
-            'slug' => ['sometimes', 'string', 'unique:chapters,slug,' . $this->chapter->id, 'max:255'],
+            'slug' => ['sometimes', 'string', 'unique:chapters,slug,' . $this->chapter, 'max:255'],
             'book_id' => ['required', 'integer', 'exists:books,id'],
         ];
     }

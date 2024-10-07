@@ -20,15 +20,15 @@ Route::middleware('auth', 'role:Admin|admin|Editor|editor')->group(function () {
             ->middleware('role_or_permission:view_any_user');
         Route::resource('/roles', RoleController::class)
             ->middleware('role_or_permission:view_any_role');
-        // Route::resource('/permissions', PermissionController::class);
         Route::resource('/books', BookController::class)
             ->middleware('role_or_permission:view_any_book');
-        Route::resource('/chapter', ChapterController::class)
+        Route::resource('books.chapters', ChapterController::class)
             ->middleware('role_or_permission:view_any_chapter');
-        Route::resource('/page', PageController::class)
+        Route::resource('books.chapters.pages', PageController::class)
             ->middleware('role_or_permission:view_any_page');
         Route::resource('/categories', CategoryController::class)
             ->middleware('role_or_permission:view_any_category');
+
         Route::get('/roles/{role}/permissions/edit', [RoleController::class, 'editPermissions'])
             ->middleware('role_or_permission:update_role')
             ->name('roles.permissions.edit');
@@ -38,7 +38,7 @@ Route::middleware('auth', 'role:Admin|admin|Editor|editor')->group(function () {
     });
 });
 
-// Letakkan rute dinamis setelah rute statis
+// Route statis harus berada paling bawah
 Route::get('/books', [IndexController::class, 'home'])
     ->name('books.index');
 Route::get('/{book:slug}', [IndexController::class, 'indexShowBook'])

@@ -23,23 +23,22 @@ class ChapterController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Book $book)
     {
-        $query = Book::query();
+        // $query = Book::query();
 
-        if (auth()->user()->hasRole('admin|Admin')) {
-            $books = $query->orderBy('id', 'DESC')->get();
-        }
+        // if (auth()->user()->hasRole('admin|Admin')) {
+        //     $books = $query->orderBy('id', 'DESC')->get();
+        // }
 
-        if (auth()->user()->hasRole('editor|Editor')) {
-            $user_id = auth()->user()->id;
-            $books = $query->where('user_id', $user_id)
-                ->orderBy('id', 'DESC')->get();
-        }
+        // if (auth()->user()->hasRole('editor|Editor')) {
+        //     $user_id = auth()->user()->id;
+        //     $books = $query->where('user_id', $user_id)
+        //         ->orderBy('id', 'DESC')->get();
+        // }
 
-        // Return view dengan data buku
         return view('admin.books.chapter.add', [
-            'books' => $books,
+            'book' => $book,
         ]);
     }
 
@@ -56,7 +55,7 @@ class ChapterController extends Controller
             Chapter::create($validated);
             return redirect()->route('admin.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.chapter.add')->withErrors($e);
+            return redirect()->route('admin.books.chapters.create')->withErrors($e);
         }
     }
 
@@ -77,14 +76,13 @@ class ChapterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Chapter $chapter)
+    public function edit(Book $book, Chapter $chapter)
     {
-        $books = Book::all();
         return view(
             'admin.books.chapter.edit',
             [
                 'chapter' => $chapter,
-                'books' => $books,
+                'book' => $book,
             ]
         );
     }
@@ -92,7 +90,7 @@ class ChapterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChapterRequest $request, Chapter $chapter)
+    public function update(UpdateChapterRequest $request, Book $book, Chapter $chapter)
     {
         try {
             $validated = $request->validated();
@@ -101,7 +99,10 @@ class ChapterController extends Controller
             $chapter->update($validated);
             return redirect()->route('admin.books.index', $chapter->book_id);
         } catch (\Throwable $e) {
-            return redirect()->route('admin.chapter.edit', $chapter->id)->withErrors($e);
+            return redirect()->route('admin.books.chapters.edit', [
+                'book' => $book,
+                'chapter' => $chapter,
+            ])->withErrors($e);
         }
     }
 

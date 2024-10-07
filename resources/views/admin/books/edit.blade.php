@@ -5,7 +5,7 @@
         <form method="POST" action="{{ route('admin.books.update', $book) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="grid gap-5 md:grid-cols-2">
+            <div class="grid gap-5 p-5 border-2 rounded-lg shadow-md md:grid-cols-2">
                 <div>
                     <x-label for="name" :value="__('Name')" />
                     <x-input id="name" class="block w-full mt-1" type="text" name="name"
@@ -26,14 +26,14 @@
                 </div>
                 <div>
                     <x-label for="image" :value="__('Image')" />
-                    <img class="h-80" src="{{ Storage::url($book->image) ?? $book->image }}" alt="">
+                    <img class="rounded-lg h-80" src="{{ Storage::url($book->image) ?? $book->image }}" alt="">
                     <x-input id="image" class="block w-full mt-1" type="file" name="image" :value="old('image')"
                         autofocus autocomplete="image" />
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                 </div>
                 <div>
                     <x-label for="category" :value="__('Category')" />
-                    <select id="category" name="category_id" class="block w-full mt-1">
+                    <select id="category" name="category_id" class="block w-full mt-1 rounded-lg">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ $book->category_id == $category->id ? 'selected' : '' }}>
