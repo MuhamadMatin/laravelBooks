@@ -77,15 +77,6 @@
                                 ]) }}">
                                 <h3 class="text-xl font-bold text-gray-900">{{ $chapter->name }}</h3>
                             </a>
-                            @can('edit_chapter')
-                                <a wire:navigate
-                                    href="{{ route('admin.books.chapters.edit', [
-                                        'book' => $book,
-                                        'chapter' => $chapter,
-                                    ]) }}"
-                                    class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Chapter
-                                </a>
-                            @endcan
                             @can('create_page')
                                 <a wire:navigate
                                     href="{{ route('admin.books.chapters.pages.create', [
@@ -95,6 +86,29 @@
                                     class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add
                                     page
                                 </a>
+                            @endcan
+                            @can('edit_chapter')
+                                <a wire:navigate
+                                    href="{{ route('admin.books.chapters.edit', [
+                                        'book' => $book,
+                                        'chapter' => $chapter,
+                                    ]) }}"
+                                    class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Chapter
+                                </a>
+                            @endcan
+                            @can('delete_chapter')
+                                <form
+                                    action="{{ route('admin.books.chapters.destroy', [
+                                        'book' => $book,
+                                        'chapter' => $chapter,
+                                    ]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="px-3 py-2 font-bold text-red-700 border-2 rounded-full">
+                                        Delete
+                                    </button>
+                                </form>
                             @endcan
                         </span>
                         <ul class="ml-4 list-disc list-inside">
@@ -117,6 +131,22 @@
                                             ]) }}"
                                             class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Edit Page
                                         </a>
+                                    @endcan
+                                    @can('delete_chapter')
+                                        <form
+                                            action="{{ route('admin.books.chapters.pages.destroy', [
+                                                'book' => $book,
+                                                'chapter' => $chapter,
+                                                'page' => $page,
+                                            ]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="px-3 py-2 font-bold text-red-700 border-2 rounded-full">
+                                                Delete
+                                            </button>
+                                        </form>
                                     @endcan
                                 </span>
                             @empty

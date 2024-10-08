@@ -93,8 +93,17 @@ class PageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Page $page)
+    public function destroy(Book $book, Chapter $chapter, Page $page)
     {
-        //
+        try {
+            $pageNotFound = Page::find($page)->first();
+            if (!$pageNotFound) {
+                return redirect()->route('admin.books.show', $book)->withErrors('Page not found');
+            }
+            $page->delete();
+            return redirect()->route('admin.books.show', $book);
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.books.show', $book)->withErrors('Page not found');
+        }
     }
 }

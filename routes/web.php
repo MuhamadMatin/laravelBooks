@@ -30,10 +30,10 @@ Route::middleware('auth', 'role:Admin|admin|Editor|editor')->group(function () {
             ->middleware('role_or_permission:view_any_category');
 
         Route::get('/roles/{role}/permissions/edit', [RoleController::class, 'editPermissions'])
-            ->middleware('role_or_permission:update_role')
+            ->middleware('role_or_permission:edit_role')
             ->name('roles.permissions.edit');
         Route::put('/roles/{role}/permissions', [RoleController::class, 'updatePermissions'])
-            ->middleware('role_or_permission:update_role')
+            ->middleware('role_or_permission:edit_role')
             ->name('roles.permissions.update');
     });
 });

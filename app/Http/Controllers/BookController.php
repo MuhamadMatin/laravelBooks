@@ -121,7 +121,7 @@ class BookController extends Controller
         try {
             $bookNotFound = Book::find($book)->first();
             if (!$bookNotFound) {
-                return redirect()->route('admin.categories.index')->withErrors('Book not found');
+                return redirect()->route('admin.books.show', $book)->withErrors('Book not found');
             }
             $book->delete();
             return redirect()->route('admin.books.index');

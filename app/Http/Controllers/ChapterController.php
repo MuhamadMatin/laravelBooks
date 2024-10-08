@@ -109,8 +109,17 @@ class ChapterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chapter $chapter)
+    public function destroy(Book $book, Chapter $chapter)
     {
-        //
+        try {
+            $chapterNotFound = Chapter::find($chapter)->first();
+            if (!$chapterNotFound) {
+                return redirect()->route('admin.books.show', $book)->withErrors('Chapter not found');
+            }
+            $chapter->delete();
+            return redirect()->route('admin.books.show', $book);
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.books.show', $book)->withErrors('Chapter not found');
+        }
     }
 }
