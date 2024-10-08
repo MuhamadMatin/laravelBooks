@@ -29,6 +29,9 @@ Route::middleware('auth', 'role:Admin|admin|Editor|editor')->group(function () {
         Route::resource('/categories', CategoryController::class)
             ->middleware('role_or_permission:view_any_category');
 
+        Route::get('/', [IndexController::class, 'admin'])
+            ->middleware('role:admin|Admin|Editor|editor')
+            ->name('index');
         Route::get('/roles/{role}/permissions/edit', [RoleController::class, 'editPermissions'])
             ->middleware('role_or_permission:edit_role')
             ->name('roles.permissions.edit');

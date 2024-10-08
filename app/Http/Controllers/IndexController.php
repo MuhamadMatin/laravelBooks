@@ -7,8 +7,10 @@ use App\Models\Page;
 use App\Models\Chapter;
 use App\Models\Category;
 use App\Models\LikeBook;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Permission\Models\Role;
 
 class IndexController extends Controller
 {
@@ -49,6 +51,33 @@ class IndexController extends Controller
         $books = Book::all()->sortByDesc('id');
         $categories = Category::all();
         return view('books.index', [
+            'books' => $books,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function admin()
+    {
+        $editor = auth()->user()->hasRole(['Editor', 'editor']);
+        $editorAndAdmin = auth()->user()->hasRole(['Editor', 'editor', 'Admin', 'admin']);
+        if ($editor) {
+            $books = Book::where('user_id', auth()->id())
+                ->count();
+        } elseif (!$editorAndAdmin) {
+            return redirect()->route('index');
+        } else {
+            $books = Book::select('id')
+                ->count();
+        }
+        $users = User::select('id')
+            ->count();
+        $roles = Role::select('id')
+            ->count();
+        $categories = Category::select('id')
+            ->count();
+        return view('admin.index', [
+            'users' => $users,
+            'roles' => $roles,
             'books' => $books,
             'categories' => $categories,
         ]);

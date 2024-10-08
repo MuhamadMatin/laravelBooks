@@ -1,11 +1,16 @@
 <x-app-layout>
     <main class="container p-6 mx-auto">
-        @can('create_category')
-            <a wire:navigate href="{{ route('admin.categories.create') }}"
-                class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">Add
-                new category
+        <span class="flex gap-x-5">
+            <a wire:navigate href="{{ route('admin.index') }}"
+                class="px-4 py-3 font-bold text-yellow-500 border-2 rounded-full">Back
             </a>
-        @endcan
+            @can('create_category')
+                <a wire:navigate href="{{ route('admin.categories.create') }}"
+                    class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">Add
+                    new category
+                </a>
+            @endcan
+        </span>
         <div class="grid grid-cols-1 gap-10 my-5 md:grid-cols-2">
             @forelse ($categories as $category)
                 <div class="flex justify-between">

@@ -59,6 +59,9 @@
         <div class="mt-8">
             <span class="flex items-center gap-x-5">
                 <h2 class="text-2xl font-semibold">Chapters</h2>
+                <a wire:navigate href="{{ route('admin.books.index') }}"
+                    class="px-3 py-2 font-bold text-yellow-500 border-2 rounded-full">Back
+                </a>
                 @can('create_chapter')
                     <a wire:navigate href="{{ route('admin.books.chapters.create', $book) }}"
                         class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">Add

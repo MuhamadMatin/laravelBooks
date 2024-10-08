@@ -39,7 +39,7 @@
                 @forelse ($comings as $coming)
                     <div class="overflow-hidden bg-white border border-gray-200 rounded-lg shadow-md group min-h-fit">
                         <!-- Image -->
-                        <img class="object-cover w-full h-80" src="{{ $coming->image }}" alt="{{ $coming->name }}"
+                        <img class="object-cover w-full h-80" src="{{ $coming->getImage() }}" alt="{{ $coming->name }}"
                             loading="lazy">
                     </div>
                 @empty

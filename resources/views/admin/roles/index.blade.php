@@ -1,10 +1,16 @@
 <x-app-layout>
     <main class="container p-6 mx-auto">
-        @can('create_role')
-            <a wire:navigate href="{{ route('admin.roles.create') }}"
-                class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">Add
-                new roles</a>
-        @endcan
+        <span class="flex gap-x-5">
+            <a wire:navigate href="{{ route('admin.index') }}"
+                class="px-4 py-3 font-bold text-yellow-500 border-2 rounded-full">
+                Back
+            </a>
+            @can('create_role')
+                <a wire:navigate href="{{ route('admin.roles.create') }}"
+                    class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">Add
+                    new roles</a>
+            @endcan
+        </span>
         <div class="grid grid-cols-1 gap-10 my-5 md:grid-cols-2">
             @forelse ($roles as $role)
                 <div class="flex justify-between">

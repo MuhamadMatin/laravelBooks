@@ -31,7 +31,11 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-end mt-4 gap-x-5">
+                <a wire:navigate href="{{ route('admin.users.index') }}"
+                    class="px-4 py-3 font-bold text-yellow-500 border-2 rounded-full">
+                    Back
+                </a>
                 <button type="submit" class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">
                     Add New User
                 </button>
