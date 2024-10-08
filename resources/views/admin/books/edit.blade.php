@@ -46,9 +46,9 @@
                 <div>
                     <x-label for="show" :value="__('Show')" />
                     <label class="flex items-center mt-1">
-                        <input id="show" type="checkbox" name="show" class="toggle-checkbox" value="1"
-                            {{ $book->show ? 'checked' : '' }} />
-                        <span class="ml-2">Show</span>
+                        <input class="w-5 h-5 text-orange-600 rounded form-checkbox" id="show" type="checkbox"
+                            name="show" class="toggle-checkbox" value="1" {{ $book->show ? 'checked' : '' }} />
+                        <label for="show" class="ml-2 text-sm text-gray-700">Show</label>
                     </label>
                     {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                 </div>

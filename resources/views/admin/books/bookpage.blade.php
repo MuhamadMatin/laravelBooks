@@ -1,7 +1,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-14">
     @forelse ($books as $book)
         <div
-            class="relative overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-200 rounded-lg shadow-md group min-h-fit">
+            class="relative overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-200 rounded-lg shadow-md group min-h-80">
             <!-- Image -->
             <img class="object-cover w-full transition-all duration-300 ease-in-out h-80 lg:group-hover:h-full group-active:h-full"
                 src="{{ $book->getImage() }}" alt="{{ $book->name }}" loading="lazy">

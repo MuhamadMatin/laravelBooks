@@ -2,7 +2,6 @@
     <main class="container py-5 mx-auto">
         <div class="grid grid-cols-1 gap-6 m-6 md:grid-cols-2 lg:grid-cols-4">
             @role('Admin|admin|Editor|editor')
-                <!-- Card Manage Books -->
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')" class="text-lg font-semibold">
                         {{ __('Manage Books') }}
@@ -35,7 +34,6 @@
             @endrole
 
             @role('Admin|admin')
-                <!-- Card Manage Categories -->
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')"
                         class="text-lg font-semibold">
@@ -66,7 +64,6 @@
                     </span>
                 </div>
 
-                <!-- Card Manage Users -->
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')" class="text-lg font-semibold">
                         {{ __('Manage Users') }}
@@ -88,7 +85,6 @@
                     </span>
                 </div>
 
-                <!-- Card Manage Roles -->
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')" class="text-lg font-semibold">
                         {{ __('Manage Roles') }}

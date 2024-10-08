@@ -35,22 +35,8 @@
                         </x-dropdown-link>
                         @role('Admin|admin|Editor|editor')
                             <hr class="border-t border-gray-200">
-                            <x-dropdown-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')">
-                                {{ __('Manage Books') }}
-                            </x-dropdown-link>
-                        @endrole
-                        @role('Admin|admin')
-                            <hr class="border-t border-gray-200">
-                            <x-dropdown-link href="{{ route('admin.categories.create') }}" :active="request()->routeIs('admin.categories.index')">
-                                {{ __('Manage Category') }}
-                            </x-dropdown-link>
-                            <hr class="border-t border-gray-200">
-                            <x-dropdown-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
-                                {{ __('Manage Users') }}
-                            </x-dropdown-link>
-                            <hr class="border-t border-gray-200">
-                            <x-dropdown-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')">
-                                {{ __('Manage Roles') }}
+                            <x-dropdown-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
+                                {{ __('Manage') }}
                             </x-dropdown-link>
                         @endrole
                     </x-slot>
