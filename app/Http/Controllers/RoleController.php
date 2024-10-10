@@ -8,9 +8,21 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class RoleController extends Controller
+class RoleController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_role|view_any_role|create_role|edit_role|delete_role',
+            new Middleware('permission:view_role|view_any_role', only: ['index']),
+            new Middleware('permission:create_role', only: ['create', 'store']),
+            new Middleware('permission:edit_role', only: ['edit', 'update']),
+            new Middleware('permission:delete_role', only: ['destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

@@ -57,10 +57,6 @@
 
                             <x-input-error for="photo" class="mt-2" />
                         </div>
-                        {{-- <x-label for="photo" :value="__('photo')" />
-                        <x-input id="profile_photo_path" class="block w-full mt-1" type="file"
-                            name="profile_photo_path" value="profile_photo_path" autofocus
-                            autocomplete="profile_photo_path" /> --}}
                         {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                     </span>
                 </div>

@@ -8,9 +8,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_category|view_any_category|create_category|edit_category|delete_category',
+            new Middleware('permission:view_category|view_any_category', only: ['index']),
+            new Middleware('permission:create_category', only: ['create', 'store']),
+            new Middleware('permission:edit_category', only: ['edit', 'update']),
+            new Middleware('permission:delete_category', only: ['destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

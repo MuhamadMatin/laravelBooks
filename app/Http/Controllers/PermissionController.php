@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PermissionController extends Controller
+class PermissionController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_role|view_any_role|create_role|edit_role|delete_role',
+            new Middleware('permission:view_role|view_any_role', only: ['index']),
+            new Middleware('permission:create_role', only: ['create', 'store']),
+            new Middleware('permission:edit_role', only: ['edit', 'update']),
+            new Middleware('permission:delete_role', only: ['destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

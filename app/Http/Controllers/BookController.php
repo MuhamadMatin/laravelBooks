@@ -8,9 +8,21 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class BookController extends Controller
+class BookController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_book|view_any_book|create_book|edit_book|delete_book',
+            new Middleware('permission:view_book|view_any_book', only: ['index']),
+            new Middleware('permission:create_book', only: ['create', 'store']),
+            new Middleware('permission:edit_book', only: ['edit', 'update']),
+            new Middleware('permission:delete_book', only: ['destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

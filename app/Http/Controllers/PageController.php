@@ -9,9 +9,21 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdatePageRequest;
 use App\Models\Chapter;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PageController extends Controller
+class PageController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_page|view_any_page|create_page|edit_page|delete_page',
+            new Middleware('permission:view_page|view_any_page', only: ['index']),
+            new Middleware('permission:create_page', only: ['create', 'store']),
+            new Middleware('permission:edit_page', only: ['edit', 'update']),
+            new Middleware('permission:delete_page', only: ['destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

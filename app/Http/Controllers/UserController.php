@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Policies\UserPolicy;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_user|view_any_user|create_user|edit_user|delete_user',
+            new Middleware('permission:view_user|view_any_user', only: ['index']),
+            new Middleware('permission:create_user', only: ['create', 'store']),
+            new Middleware('permission:edit_user', only: ['edit', 'update']),
+            new Middleware('permission:delete_user', only: ['destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

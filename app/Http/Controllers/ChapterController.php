@@ -9,9 +9,22 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateChapterRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ChapterController extends Controller
+class ChapterController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'role_or_permission:view_chapter|view_any_chapter|create_chapter|edit_chapter|delete_chapter',
+            new Middleware('permission:view_chapter|view_any_chapter', only: ['index']),
+            new Middleware('permission:create_chapter', only: ['create', 'store']),
+            new Middleware('permission:edit_chapter', only: ['edit', 'update']),
+            new Middleware('permission:delete_chapter', only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

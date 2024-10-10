@@ -14,20 +14,20 @@ use App\Http\Controllers\PermissionController;
 Route::get('/', [IndexController::class, 'index'])
     ->name('index');
 
-Route::middleware('auth', 'role:Admin|admin|Editor|editor')->group(function () {
+Route::middleware('auth', 'role_or_permission:Admin|admin|Editor|editor')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('/users', UserController::class)
-            ->middleware('role_or_permission:view_any_user');
-        Route::resource('/roles', RoleController::class)
-            ->middleware('role_or_permission:view_any_role');
-        Route::resource('/books', BookController::class)
-            ->middleware('role_or_permission:view_any_book');
-        Route::resource('books.chapters', ChapterController::class)
-            ->middleware('role_or_permission:view_any_chapter');
-        Route::resource('books.chapters.pages', PageController::class)
-            ->middleware('role_or_permission:view_any_page');
-        Route::resource('/categories', CategoryController::class)
-            ->middleware('role_or_permission:view_any_category');
+        Route::resource('/users', UserController::class);
+        // ->middleware('role_or_permission:view_any_user');
+        Route::resource('/roles', RoleController::class);
+        // ->middleware('role_or_permission:view_any_role');
+        Route::resource('/books', BookController::class);
+        // ->middleware('role_or_permission:view_any_book');
+        Route::resource('books.chapters', ChapterController::class);
+        // ->middleware('role_or_permission:view_any_chapter');
+        Route::resource('books.chapters.pages', PageController::class);
+        // ->middleware('role_or_permission:view_any_page');
+        Route::resource('/categories', CategoryController::class);
+        // ->middleware('role_or_permission:view_any_category');
 
         Route::get('/', [IndexController::class, 'admin'])
             ->middleware('role:admin|Admin|Editor|editor')
