@@ -25,9 +25,7 @@
     @include('layouts.partials.header')
     @yield('hero')
     <div class="min-h-screen bg-gray-100">
-        <main>
-            {{ $slot }}
-        </main>
+        {{ $slot }}
     </div>
     @include('layouts.partials.footer')
 

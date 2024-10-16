@@ -51,6 +51,12 @@
             </div>
         @endif
 
+        <!-- Role -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="role" value="{{ __('Role') }}" />
+            <p class="block w-full mt-1 disabled:opacity-75">{{ Auth::user()->roles[0]->name }}</p>
+        </div>
+
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Name') }}" />

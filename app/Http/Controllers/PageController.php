@@ -57,7 +57,10 @@ class PageController extends Controller implements HasMiddleware
             Page::create($validated);
             return redirect()->route('admin.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.chapters.pages.create')->withErrors($e->getMessage());
+            return redirect()->route('admin.books.chapters.pages.create', [
+                'book' => $validated['book_id'],
+                'chapter' => $validated['chapter_id'],
+            ])->withErrors($e->getMessage());
         }
     }
 

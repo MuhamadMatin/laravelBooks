@@ -15,7 +15,7 @@
             @forelse ($categories as $category)
                 <div class="flex justify-between">
                     <span>
-                        <h1 class="font-semibold ">Name: {{ $category->name }}</h1>
+                        <h1 class="font-semibold ">{{ $category->name }}</h1>
                         <h2>Slug: {{ $category->slug }}</h2>
                     </span>
                     <span class="flex flex-col items-center gap-3">

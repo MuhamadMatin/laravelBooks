@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller implements HasMiddleware
 {
@@ -49,7 +50,7 @@ class UserController extends Controller implements HasMiddleware
     {
         try {
             $validated = $request->validated();
-            $validated['password'] = bcrypt($validated['password']);
+            $validated['password'] = Hash::make($validated['password']);
             if ($request->hasFile('profile_photo_path')) {
                 $originalName = $request->file('profile_photo_path')
                     ->getClientOriginalName();
@@ -93,7 +94,7 @@ class UserController extends Controller implements HasMiddleware
         try {
             $validated = $request->validated();
             if ($request['password']) {
-                $validated['password'] = bcrypt($validated['password']);
+                $validated['password'] = Hash::make($validated['password']);
             }
             if ($request->hasFile('profile_photo_path')) {
                 $originalName = $request->file('profile_photo_path')

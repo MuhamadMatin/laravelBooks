@@ -27,7 +27,7 @@ class UpdateBookRequest extends FormRequest
             'desk' => ['required', 'string'],
             'image' => ['nullable', 'sometimes', 'image', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
             'show' => ['sometimes', 'boolean'],
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'category_id' => ['required', 'integer', 'exists:categori   es,id'],
             'user_id' => ['sometimes', 'integer', 'exists:users,id'],
         ];
     }

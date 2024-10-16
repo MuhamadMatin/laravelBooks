@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="container py-5 mx-auto">
         <div class="grid grid-cols-1 gap-6 m-6 md:grid-cols-2 lg:grid-cols-4">
-            @role('Admin|admin|Editor|editor')
+            @can('view_any_book')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')" class="text-lg font-semibold">
                         {{ __('Manage Books') }}
@@ -31,9 +31,9 @@
                         <p class="ml-3 text-3xl font-bold">{{ $books }}</p>
                     </span>
                 </div>
-            @endrole
+            @endcan
 
-            @role('Admin|admin')
+            @can('view_any_category')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')"
                         class="text-lg font-semibold">
@@ -63,7 +63,9 @@
                         <p class="ml-3 text-3xl font-bold">{{ $categories }}</p>
                     </span>
                 </div>
+            @endcan
 
+            @can('view_any_user')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')" class="text-lg font-semibold">
                         {{ __('Manage Users') }}
@@ -84,7 +86,9 @@
                         <p class="ml-3 text-3xl font-bold">{{ $users }}</p>
                     </span>
                 </div>
+            @endcan
 
+            @can('view_any_role')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                     <x-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')" class="text-lg font-semibold">
                         {{ __('Manage Roles') }}
@@ -104,7 +108,7 @@
                         <p class="ml-3 text-3xl font-bold">{{ $roles }}</p>
                     </span>
                 </div>
-            @endrole
+            @endcan
         </div>
     </main>
 </x-app-layout>

@@ -11,11 +11,11 @@
                 <x-nav-link href="{{ route('books.index') }}" :active="request()->routeIs('books.index')">
                     {{ __('Books') }}
                 </x-nav-link>
-                @role('Admin|admin|Editor|editor')
+                @canany(['view_any_book', 'view_any_user', 'view_any_category', 'view_any_role'])
                     <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                         {{ __('Manage') }}
                     </x-nav-link>
-                @endrole
+                @endcanany
             </span>
         </div>
         <div class="block pt-2 pb-3 space-x-5 space-y-1 md:hidden">
@@ -33,12 +33,12 @@
                         <x-dropdown-link href="{{ route('books.index') }}" :active="request()->routeIs('books.index')">
                             {{ __('Books') }}
                         </x-dropdown-link>
-                        @role('Admin|admin|Editor|editor')
+                        @canany(['view_any_book', 'view_any_user', 'view_any_category', 'view_any_role'])
                             <hr class="border-t border-gray-200">
                             <x-dropdown-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                                 {{ __('Manage') }}
                             </x-dropdown-link>
-                        @endrole
+                        @endcanany
                     </x-slot>
                 </x-dropdown>
             </div>

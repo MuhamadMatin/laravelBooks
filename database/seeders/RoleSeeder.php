@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
 
 class RoleSeeder extends Seeder
 {
@@ -127,31 +128,31 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
-                'password' => bcrypt('admin'),
+                'password' => 'admin',
                 'role' => 'Admin',
             ],
             [
                 'name' => 'editor',
                 'email' => 'editor@gmail.com',
-                'password' => bcrypt('editor'),
+                'password' => 'editor',
                 'role' => 'Editor',
             ],
             [
                 'name' => 'user1',
                 'email' => 'user1@gmail.com',
-                'password' => bcrypt('user1'),
+                'password' => 'user1',
                 'role' => 'User',
             ],
             [
                 'name' => 'user2',
                 'email' => 'user2@gmail.com',
-                'password' => bcrypt('user2'),
+                'password' => 'user2',
                 'role' => 'User',
             ],
             [
                 'name' => 'user3',
                 'email' => 'user3@gmail.com',
-                'password' => bcrypt('user3'),
+                'password' => 'user3',
                 'role' => 'User',
             ],
         ];
@@ -160,7 +161,7 @@ class RoleSeeder extends Seeder
             User::firstOrCreate([
                 'name' => $user['name'],
                 'email' => $user['email'],
-                'password' => $user['password'],
+                'password' => Hash::make($user['password']),
             ])->assignRole($user['role']);
         }
 

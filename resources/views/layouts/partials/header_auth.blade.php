@@ -24,19 +24,9 @@
 
         <x-slot name="content">
             <!-- Account Management -->
-            @if (Auth::user()->roles[0]->name == 'Admin' || 'admin')
-                <div class="block px-4 py-2 text-xs text-yellow-500">
-                    {{ Auth::user()->roles[0]->name }}
-                </div>
-            @elseif(Auth::user()->roles[0]->name == 'Editor' || 'editor')
-                <div class="block px-4 py-2 text-xs text-indigo-700">
-                    {{ Auth::user()->roles[0]->name }}
-                </div>
-            @else
-                <div class="block px-4 py-2 text-xs text-gray-400">
-                    {{ Auth::user()->roles[0]->name }}
-                </div>
-            @endif
+            <div class="block px-4 py-2 text-xs text-indigo-700">
+                {{ Auth::user()->roles[0]->name }}
+            </div>
             <div class="block px-4 py-2 text-xs text-gray-400">
                 {{ __('Manage Account') }}
             </div>
