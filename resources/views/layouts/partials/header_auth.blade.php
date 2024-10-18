@@ -31,13 +31,25 @@
                 {{ __('Manage Account') }}
             </div>
 
+            @role('User')
+                <form method="POST" action="{{ route('user.role.update', Auth::user()->id) }}" x-data>
+                    @csrf
+
+                    <button
+                        class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out text-start hover:bg-gray-100 focus:outline-none focus:bg-gray-100">
+                        {{ __('Change Role Editor') }}
+                    </button>
+                </form>
+                <hr class="border-t border-gray-200">
+            @endrole
+
             <x-dropdown-link href="{{ route('profile.show') }}">
                 {{ __('Profile') }}
             </x-dropdown-link>
 
             <hr class="border-t border-gray-200">
 
-            <!-- Authentication -->
+            <!-- Logout -->
             <form method="POST" action="{{ route('logout') }}" x-data>
                 @csrf
 

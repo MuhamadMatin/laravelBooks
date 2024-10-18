@@ -17,11 +17,12 @@ class UserController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            'role_or_permission:view_user|view_any_user|create_user|edit_user|delete_user',
+            'role_or_permission:view_book|view_any_book|view_user|view_any_user|create_user|edit_user|delete_user',
             new Middleware('permission:view_user|view_any_user', only: ['index']),
             new Middleware('permission:create_user', only: ['create', 'store']),
             new Middleware('permission:edit_user', only: ['edit', 'update']),
             new Middleware('permission:delete_user', only: ['destroy']),
+            new Middleware('permission:view_book|view_any_book', only: ['updateRole']),
         ];
     }
     /**
@@ -127,6 +128,26 @@ class UserController extends Controller implements HasMiddleware
             return redirect()->route('admin.users.index');
         } catch (\Throwable $e) {
             return redirect()->route('admin.users.index')->withErrors('Name not found');
+        }
+    }
+
+    public function updateRole(User $user)
+    {
+        try {
+            $user = User::find($user)->first();
+            if (!$user) {
+                return redirect()->route('index')->withErrors('User not found');
+            }
+            if ($user->hasRole(['Editor' | 'Admin'])) {
+                return redirect()->route('index')->withErrors('User is not allowed');
+            }
+            if ($user->hasRole('User')) {
+                $user->removeRole('User');
+            }
+            $user->assignRole('Editor');
+            return redirect()->route('index');
+        } catch (\Throwable $e) {
+            return redirect()->route('index')->withErrors('Name not found');
         }
     }
 }

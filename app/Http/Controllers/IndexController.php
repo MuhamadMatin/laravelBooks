@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Page;
+use App\Models\User;
 use App\Models\Chapter;
 use App\Models\Category;
 use App\Models\LikeBook;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Cache;
 
 class IndexController extends Controller
 {
-    /**
+    /** 
      * Display a listing of the resource.
      */
     public function index()
@@ -69,12 +69,14 @@ class IndexController extends Controller
             $books = Book::select('id')
                 ->count();
         }
+
         $users = User::select('id')
             ->count();
         $roles = Role::select('id')
             ->count();
         $categories = Category::select('id')
             ->count();
+
         return view('admin.index', [
             'users' => $users,
             'roles' => $roles,

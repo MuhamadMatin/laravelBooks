@@ -50,6 +50,8 @@ Route::get('/{book:slug}/{chapter:slug}', [IndexController::class, 'indexShowCha
     ->name('chapter.show');
 Route::get('/{book:slug}/{chapter:slug}/{page:slug}', [IndexController::class, 'indexShowPage'])
     ->name('page.show');
+Route::post('/user/{user}/role/update', [UserController::class, 'updateRole'])
+    ->name('user.role.update');
 
 Route::middleware([
     'auth:sanctum',
