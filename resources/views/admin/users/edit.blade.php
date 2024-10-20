@@ -2,7 +2,7 @@
     <main class="container p-6 mx-auto">
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('manage.users.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="grid grid-cols-2 gap-5">
@@ -63,7 +63,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4 gap-x-5">
-                <a wire:navigate href="{{ route('admin.users.index') }}"
+                <a wire:navigate href="{{ route('manage.users.index') }}"
                     class="px-4 py-3 font-bold text-yellow-500 border-2 rounded-full">
                     Back
                 </a>

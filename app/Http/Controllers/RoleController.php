@@ -50,7 +50,7 @@ class RoleController extends Controller implements HasMiddleware
     public function store(StoreRoleRequest $request)
     {
         $role = Role::firstOrCreate(['name' => $request['name']]);
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('manage.roles.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class RoleController extends Controller implements HasMiddleware
         $role->name = $request['name'];
         $role->save();
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('manage.roles.index');
     }
 
     public function editPermissions(Role $role)
@@ -98,7 +98,7 @@ class RoleController extends Controller implements HasMiddleware
 
         $role->syncPermissions($request['permissions']);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('manage.roles.index');
     }
 
     /**
@@ -109,12 +109,12 @@ class RoleController extends Controller implements HasMiddleware
         try {
             $roleNotFound = Role::find($role)->first();
             if (!$roleNotFound) {
-                return redirect()->route('admin.roles.index')->withErrors('Role not found');
+                return redirect()->route('manage.roles.index')->withErrors('Role not found');
             }
             $role->delete();
-            return redirect()->route('admin.roles.index');
+            return redirect()->route('manage.roles.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.roles.index')->withErrors('Role not found');
+            return redirect()->route('manage.roles.index')->withErrors('Role not found');
         }
     }
 }

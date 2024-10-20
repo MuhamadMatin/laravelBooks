@@ -1,11 +1,11 @@
 <x-app-layout>
     <main class="container p-6 mx-auto">
         <span class="flex gap-x-5">
-            <a wire:navigate href="{{ route('admin.index') }}"
+            <a wire:navigate href="{{ route('manage.index') }}"
                 class="px-4 py-3 font-bold text-yellow-500 border-2 rounded-full">Back
             </a>
             @can('create_category')
-                <a wire:navigate href="{{ route('admin.categories.create') }}"
+                <a wire:navigate href="{{ route('manage.categories.create') }}"
                     class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">Add
                     new category
                 </a>
@@ -20,7 +20,7 @@
                     </span>
                     <span class="flex flex-col items-center gap-3">
                         @can('edit_category')
-                            <a wire:navigate href="{{ route('admin.categories.edit', $category->id) }}"
+                            <a wire:navigate href="{{ route('manage.categories.edit', $category->id) }}"
                                 class="px-3 py-2 font-bold border-2 rounded-full">
                                 <svg class="w-5 h-5 stroke-indigo-700" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
                             </a>
                         @endcan
                         @can('delete_category')
-                            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
+                            <form action="{{ route('manage.categories.destroy', $category) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-3 py-2 font-bold border-2 rounded-full">

@@ -16,7 +16,7 @@
             </div>
             <span class="flex flex-col items-center gap-3">
                 @can('edit_user')
-                    <a wire:navigate href="{{ route('admin.users.edit', $user->id) }}"
+                    <a wire:navigate href="{{ route('manage.users.edit', $user->id) }}"
                         class="px-3 py-2 font-bold border-2 rounded-full">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -35,7 +35,7 @@
                     </a>
                 @endcan
                 @can('delete_user')
-                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                    <form action="{{ route('manage.users.destroy', $user) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="px-3 py-2 rounded-full font-boldborder-2">

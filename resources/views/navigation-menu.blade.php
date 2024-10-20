@@ -3,7 +3,7 @@
         <a wire:navigate href="{{ route('index') }}">
             <x-application-mark />
         </a>
-        <div class="hidden ml-10 md:block top-menu">
+        <div class="hidden ml-5 md:block top-menu">
             <span class="flex space-x-5">
                 <x-nav-link href="{{ route('index') }}" :active="request()->routeIs('index')">
                     {{ __('Home') }}
@@ -12,7 +12,7 @@
                     {{ __('Books') }}
                 </x-nav-link>
                 @canany(['view_any_book', 'view_any_user', 'view_any_category', 'view_any_role'])
-                    <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
+                    <x-nav-link href="{{ route('manage.index') }}" :active="request()->routeIs('manage.index')">
                         {{ __('Manage') }}
                     </x-nav-link>
                 @endcanany
@@ -35,7 +35,7 @@
                         </x-dropdown-link>
                         @canany(['view_any_book', 'view_any_user', 'view_any_category', 'view_any_role'])
                             <hr class="border-t border-gray-200">
-                            <x-dropdown-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
+                            <x-dropdown-link href="{{ route('manage.index') }}" :active="request()->routeIs('manage.index')">
                                 {{ __('Manage') }}
                             </x-dropdown-link>
                         @endcanany
@@ -70,7 +70,7 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')">
+                    <x-nav-link href="{{ route('manage.books.index') }}" :active="request()->routeIs('manage.books.index')">
                         {{ __('Books') }}
                     </x-nav-link>
                 </div>
@@ -95,7 +95,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')">
+            <x-responsive-nav-link href="{{ route('manage.books.index') }}" :active="request()->routeIs('manage.books.index')">
                 {{ __('Books') }}
             </x-responsive-nav-link>
         </div>

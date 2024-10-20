@@ -51,9 +51,9 @@ class CategoryController extends Controller implements HasMiddleware
             $validated = $request->validated();
             $validated['slug'] = Str::slug($validated['name']);
             Category::create($validated);
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('manage.categories.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.categories.create')->withErrors('Duplicate name' . $e);
+            return redirect()->route('manage.categories.create')->withErrors('Duplicate name' . $e);
         }
     }
 
@@ -84,9 +84,9 @@ class CategoryController extends Controller implements HasMiddleware
             $validated = $request->validated();
             $validated['slug'] = Str::slug($validated['name']);
             $category->update($validated);
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('manage.categories.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.categories.edit')->withErrors('Duplicate name');
+            return redirect()->route('manage.categories.edit')->withErrors('Duplicate name');
         }
     }
 
@@ -98,12 +98,12 @@ class CategoryController extends Controller implements HasMiddleware
         try {
             $categoryNotFound = Category::find($category)->first();
             if (!$categoryNotFound) {
-                return redirect()->route('admin.categories.index')->withErrors('Name not found');
+                return redirect()->route('manage.categories.index')->withErrors('Name not found');
             }
             $category->delete();
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('manage.categories.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.categories.index')->withErrors('Name not found');
+            return redirect()->route('manage.categories.index')->withErrors('Name not found');
         }
     }
 }

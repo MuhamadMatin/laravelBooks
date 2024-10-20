@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 gap-6 m-6 md:grid-cols-2 lg:grid-cols-4">
             @can('view_any_book')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
-                    <x-nav-link href="{{ route('admin.books.index') }}" :active="request()->routeIs('admin.books.index')" class="text-lg font-semibold">
+                    <x-nav-link href="{{ route('manage.books.index') }}" :active="request()->routeIs('manage.books.index')" class="text-lg font-semibold">
                         {{ __('Manage Books') }}
                     </x-nav-link>
                     <span class="flex items-center mt-3">
@@ -35,7 +35,7 @@
 
             @can('view_any_category')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
-                    <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')"
+                    <x-nav-link href="{{ route('manage.categories.index') }}" :active="request()->routeIs('manage.categories.index')"
                         class="text-lg font-semibold">
                         {{ __('Manage Category') }}
                     </x-nav-link>
@@ -67,7 +67,7 @@
 
             @can('view_any_user')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
-                    <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')" class="text-lg font-semibold">
+                    <x-nav-link href="{{ route('manage.users.index') }}" :active="request()->routeIs('manage.users.index')" class="text-lg font-semibold">
                         {{ __('Manage Users') }}
                     </x-nav-link>
                     <span class="flex items-center mt-3">
@@ -90,7 +90,7 @@
 
             @can('view_any_role')
                 <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
-                    <x-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')" class="text-lg font-semibold">
+                    <x-nav-link href="{{ route('manage.roles.index') }}" :active="request()->routeIs('manage.roles.index')" class="text-lg font-semibold">
                         {{ __('Manage Roles') }}
                     </x-nav-link>
                     <span class="flex items-center mt-3">

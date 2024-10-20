@@ -11,7 +11,7 @@
                         <livewire:like-book :key="$book->id" :book="$book" />
                         <h5 class="text-gray-800">{{ $book->User->name }}</h5>
                         @can('edit_book')
-                            <a wire:navigate href="{{ route('admin.books.edit', $book) }}"
+                            <a wire:navigate href="{{ route('manage.books.edit', $book) }}"
                                 class="px-3 py-2 font-bold text-indigo-700 border-2 rounded-full">
                                 <svg class="w-5 h-5 stroke-indigo-400" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
                             </a>
                         @endcan
                         @can('delete_book')
-                            <form action="{{ route('admin.books.destroy', $book) }}" method="POST">
+                            <form action="{{ route('manage.books.destroy', $book) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-3 py-2 font-bold border-2 rounded-full">
@@ -83,7 +83,7 @@
         <div class="mt-8">
             <span class="flex items-center gap-x-5">
                 <h2 class="text-2xl font-semibold">Chapters</h2>
-                <a wire:navigate href="{{ route('admin.books.index') }}"
+                <a wire:navigate href="{{ route('manage.books.index') }}"
                     class="px-3 py-2 font-bold border-2 rounded-full">
                     <svg class="w-5 h-5 rotate-180" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -99,7 +99,7 @@
                     </svg>
                 </a>
                 @can('create_chapter')
-                    <a wire:navigate href="{{ route('admin.books.chapters.create', $book) }}"
+                    <a wire:navigate href="{{ route('manage.books.chapters.create', $book) }}"
                         class="px-3 py-2 font-bold border-2 rounded-full">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -129,7 +129,7 @@
                             </a>
                             @can('create_page')
                                 <a wire:navigate
-                                    href="{{ route('admin.books.chapters.pages.create', [
+                                    href="{{ route('manage.books.chapters.pages.create', [
                                         'book' => $book,
                                         'chapter' => $chapter,
                                     ]) }}"
@@ -151,7 +151,7 @@
                             @endcan
                             @can('edit_chapter')
                                 <a wire:navigate
-                                    href="{{ route('admin.books.chapters.edit', [
+                                    href="{{ route('manage.books.chapters.edit', [
                                         'book' => $book,
                                         'chapter' => $chapter,
                                     ]) }}"
@@ -175,7 +175,7 @@
                             @endcan
                             @can('delete_chapter')
                                 <form
-                                    action="{{ route('admin.books.chapters.destroy', [
+                                    action="{{ route('manage.books.chapters.destroy', [
                                         'book' => $book,
                                         'chapter' => $chapter,
                                     ]) }}"
@@ -211,7 +211,7 @@
                                     </a>
                                     @can('edit_page')
                                         <a wire:navigate
-                                            href="{{ route('admin.books.chapters.pages.edit', [
+                                            href="{{ route('manage.books.chapters.pages.edit', [
                                                 'book' => $book,
                                                 'chapter' => $chapter,
                                                 'page' => $page,
@@ -237,7 +237,7 @@
                                     @endcan
                                     @can('delete_chapter')
                                         <form
-                                            action="{{ route('admin.books.chapters.pages.destroy', [
+                                            action="{{ route('manage.books.chapters.pages.destroy', [
                                                 'book' => $book,
                                                 'chapter' => $chapter,
                                                 'page' => $page,
@@ -267,7 +267,7 @@
                                     <li class="text-gray-500">No pages in this chapter.</li>
                                     @can('create_page')
                                         <a wire:navigate
-                                            href="{{ route('admin.books.chapters.pages.create', [
+                                            href="{{ route('manage.books.chapters.pages.create', [
                                                 'book' => $book,
                                                 'chapter' => $chapter,
                                             ]) }}"

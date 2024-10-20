@@ -1,12 +1,12 @@
 <x-app-layout>
     <main class="container p-6 mx-auto">
         <span class="flex gap-x-5">
-            <a wire:navigate href="{{ route('admin.index') }}"
+            <a wire:navigate href="{{ route('manage.index') }}"
                 class="px-4 py-3 font-bold text-yellow-500 border-2 rounded-full">
                 Back
             </a>
             @can('create_role')
-                <a wire:navigate href="{{ route('admin.roles.create') }}"
+                <a wire:navigate href="{{ route('manage.roles.create') }}"
                     class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">Add
                     new roles</a>
             @endcan
@@ -17,7 +17,7 @@
                     <h1 class="text-2xl font-semibold">{{ $role->name }}</h1>
                     <span class="flex flex-col items-center gap-3">
                         @can('edit_role')
-                            <a wire:navigate href="{{ route('admin.roles.edit', $role->id) }}"
+                            <a wire:navigate href="{{ route('manage.roles.edit', $role->id) }}"
                                 class="px-3 py-2 font-bold border-2 rounded-full">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -34,7 +34,7 @@
                                     </g>
                                 </svg>
                             </a>
-                            <a wire:navigate href="{{ route('admin.roles.permissions.edit', $role) }}"
+                            <a wire:navigate href="{{ route('manage.roles.permissions.edit', $role) }}"
                                 class="px-3 py-2 font-bold border-2 rounded-full">
                                 <svg class="w-5 h-5 stroke-2" viewBox="0 0 48 48" id="Layer_2" data-name="Layer 2"
                                     xmlns="http://www.w3.org/2000/svg" fill="#000000">
@@ -62,7 +62,7 @@
                             </a>
                         @endcan
                         @can('delete_role')
-                            <form action="{{ route('admin.roles.destroy', $role) }}" method="POST">
+                            <form action="{{ route('manage.roles.destroy', $role) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-3 py-2 font-bold border-2 rounded-full">

@@ -5,7 +5,7 @@
             <ol class="flex items-center space-x-1 overflow-hidden overflow-x-auto md:space-x-3 whitespace-nowrap">
                 {{-- Home Link --}}
                 <li class="flex items-center">
-                    <a wire:navigate href="{{ route('admin.roles.index') }}">
+                    <a wire:navigate href="{{ route('manage.roles.index') }}">
                         <svg class="w-4 h-4 transition duration-150 ease-in-out fill-gray-500 hover:fill-gray-700"
                             version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 495.398 495.398"
@@ -41,7 +41,7 @@
                             </path>
                         </g>
                     </svg>
-                    <a wire:navigate href="{{ route('admin.roles.index') }}"
+                    <a wire:navigate href="{{ route('manage.roles.index') }}"
                         class="ml-1 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700">
                         {{ $role->name }}
                     </a>
@@ -67,7 +67,7 @@
             </h1>
         </nav>
 
-        <form action="{{ route('admin.roles.permissions.update', $role->id) }}" method="POST" class="px-5 md:px-6">
+        <form action="{{ route('manage.roles.permissions.update', $role->id) }}" method="POST" class="px-5 md:px-6">
             @csrf
             @method('PUT')
 
@@ -88,7 +88,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4 gap-x-5">
-                <a wire:navigate href="{{ route('admin.roles.index') }}"
+                <a wire:navigate href="{{ route('manage.roles.index') }}"
                     class="px-3 py-2 font-bold text-orange-300 border-2 rounded-full">Back
                 </a>
                 <button type="submit" class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">

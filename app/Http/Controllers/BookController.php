@@ -66,9 +66,9 @@ class BookController extends Controller implements HasMiddleware
             }
 
             Book::create($validated);
-            return redirect()->route('admin.books.index');
+            return redirect()->route('manage.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.create')->withErrors($e->getMessage());
+            return redirect()->route('manage.books.create')->withErrors($e->getMessage());
         }
     }
 
@@ -119,9 +119,9 @@ class BookController extends Controller implements HasMiddleware
             $validated['user_id'] = $book->user_id;
 
             $book->update($validated);
-            return redirect()->route('admin.books.show', $book->id);
+            return redirect()->route('manage.books.show', $book->id);
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.edit', $book)->withErrors($e->getMessage());
+            return redirect()->route('manage.books.edit', $book)->withErrors($e->getMessage());
         }
     }
 
@@ -133,12 +133,12 @@ class BookController extends Controller implements HasMiddleware
         try {
             $bookNotFound = Book::find($book)->first();
             if (!$bookNotFound) {
-                return redirect()->route('admin.books.show', $book)->withErrors('Book not found');
+                return redirect()->route('manage.books.show', $book)->withErrors('Book not found');
             }
             $book->delete();
-            return redirect()->route('admin.books.index');
+            return redirect()->route('manage.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.show', $book->id)->withErrors('Book not found');
+            return redirect()->route('manage.books.show', $book->id)->withErrors('Book not found');
         }
     }
 }

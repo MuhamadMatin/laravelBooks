@@ -55,9 +55,9 @@ class PageController extends Controller implements HasMiddleware
             // $validated['user_id'] = $page->book->user_id;
 
             Page::create($validated);
-            return redirect()->route('admin.books.index');
+            return redirect()->route('manage.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.chapters.pages.create', [
+            return redirect()->route('manage.books.chapters.pages.create', [
                 'book' => $validated['book_id'],
                 'chapter' => $validated['chapter_id'],
             ])->withErrors($e->getMessage());
@@ -99,9 +99,9 @@ class PageController extends Controller implements HasMiddleware
             // $validated['user_id'] = $page->book->user_id;
 
             $page->update($validated);
-            return redirect()->route('admin.books.index');
+            return redirect()->route('manage.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.chapters.pages.edit', $page)->withErrors($e->getMessage());
+            return redirect()->route('manage.books.chapters.pages.edit', $page)->withErrors($e->getMessage());
         }
     }
 
@@ -113,12 +113,12 @@ class PageController extends Controller implements HasMiddleware
         try {
             $pageNotFound = Page::find($page)->first();
             if (!$pageNotFound) {
-                return redirect()->route('admin.books.show', $book)->withErrors('Page not found');
+                return redirect()->route('manage.books.show', $book)->withErrors('Page not found');
             }
             $page->delete();
-            return redirect()->route('admin.books.show', $book);
+            return redirect()->route('manage.books.show', $book);
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.show', $book)->withErrors('Page not found');
+            return redirect()->route('manage.books.show', $book)->withErrors('Page not found');
         }
     }
 }

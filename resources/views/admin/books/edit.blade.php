@@ -2,7 +2,7 @@
     <main class="container p-6 mx-auto">
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('admin.books.update', $book) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('manage.books.update', $book) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="grid gap-5 p-5 border-2 rounded-lg shadow-md md:grid-cols-2">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4 gap-x-5">
-                <a wire:navigate href="{{ route('admin.books.show', $book) }}"
+                <a wire:navigate href="{{ route('manage.books.show', $book) }}"
                     class="px-3 py-2 font-bold text-orange-300 border-2 rounded-full">Back
                 </a>
                 <button type="submit" class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">

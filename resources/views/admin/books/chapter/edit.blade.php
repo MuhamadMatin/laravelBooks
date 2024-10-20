@@ -3,7 +3,7 @@
         <x-validation-errors class="mb-4" />
 
         <form method="POST"
-            action="{{ route('admin.books.chapters.update', [
+            action="{{ route('manage.books.chapters.update', [
                 'book' => $book,
                 'chapter' => $chapter,
             ]) }}"
@@ -29,7 +29,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4 gap-x-5">
-                <a wire:navigate href="{{ route('admin.books.show', $chapter->book_id) }}"
+                <a wire:navigate href="{{ route('manage.books.show', $chapter->book_id) }}"
                     class="px-3 py-2 font-bold text-orange-300 border-2 rounded-full">Back
                 </a>
                 <button type="submit" class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">

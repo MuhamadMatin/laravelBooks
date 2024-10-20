@@ -66,9 +66,9 @@ class ChapterController extends Controller implements HasMiddleware
             $validated['slug'] = Str::slug($validated['name']);
 
             Chapter::create($validated);
-            return redirect()->route('admin.books.index');
+            return redirect()->route('manage.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.chapters.create')->withErrors($e);
+            return redirect()->route('manage.books.chapters.create')->withErrors($e);
         }
     }
 
@@ -110,9 +110,9 @@ class ChapterController extends Controller implements HasMiddleware
             $validated['slug'] = Str::slug($validated['name']);
 
             $chapter->update($validated);
-            return redirect()->route('admin.books.index', $chapter->book_id);
+            return redirect()->route('manage.books.index', $chapter->book_id);
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.chapters.edit', [
+            return redirect()->route('manage.books.chapters.edit', [
                 'book' => $book,
                 'chapter' => $chapter,
             ])->withErrors($e);
@@ -127,12 +127,12 @@ class ChapterController extends Controller implements HasMiddleware
         try {
             $chapterNotFound = Chapter::find($chapter)->first();
             if (!$chapterNotFound) {
-                return redirect()->route('admin.books.show', $book)->withErrors('Chapter not found');
+                return redirect()->route('manage.books.show', $book)->withErrors('Chapter not found');
             }
             $chapter->delete();
-            return redirect()->route('admin.books.show', $book);
+            return redirect()->route('manage.books.show', $book);
         } catch (\Throwable $e) {
-            return redirect()->route('admin.books.show', $book)->withErrors('Chapter not found');
+            return redirect()->route('manage.books.show', $book)->withErrors('Chapter not found');
         }
     }
 }

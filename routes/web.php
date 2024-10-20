@@ -15,7 +15,7 @@ Route::get('/', [IndexController::class, 'index'])
     ->name('index');
 
 Route::middleware('auth', 'role_or_permission:Admin|admin|Editor|editor')->group(function () {
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('manage')->name('manage.')->group(function () {
         Route::resource('/users', UserController::class);
         // ->middleware('role_or_permission:view_any_user');
         Route::resource('/roles', RoleController::class);

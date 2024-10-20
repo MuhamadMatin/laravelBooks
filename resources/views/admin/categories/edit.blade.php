@@ -2,7 +2,7 @@
     <main class="container p-6 mx-auto">
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('admin.categories.update', $category->id) }}">
+        <form method="POST" action="{{ route('manage.categories.update', $category->id) }}">
             @csrf
             @method('PUT')
             <div class="grid grid-cols-2 gap-5">
@@ -15,7 +15,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4 gap-x-5">
-                <a wire:navigate href="{{ route('admin.categories.index') }}"
+                <a wire:navigate href="{{ route('manage.categories.index') }}"
                     class="px-3 py-2 font-bold text-orange-300 border-2 rounded-full">Back
                 </a>
                 <button type="submit" class="px-4 py-3 font-bold text-indigo-700 border-2 rounded-full">

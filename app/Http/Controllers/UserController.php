@@ -63,9 +63,9 @@ class UserController extends Controller implements HasMiddleware
             }
 
             User::create($validated);
-            return redirect()->route('admin.users.index');
+            return redirect()->route('manage.users.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.users.create')->withErrors($e->getMessage());
+            return redirect()->route('manage.users.create')->withErrors($e->getMessage());
         }
     }
 
@@ -108,9 +108,9 @@ class UserController extends Controller implements HasMiddleware
             }
 
             $user->update($validated);
-            return redirect()->route('admin.users.index');
+            return redirect()->route('manage.users.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.users.edit', $user->id)->withErrors($e->getMessage());
+            return redirect()->route('manage.users.edit', $user->id)->withErrors($e->getMessage());
         }
     }
 
@@ -122,12 +122,12 @@ class UserController extends Controller implements HasMiddleware
         try {
             $user = User::find($user)->first();
             if (!$user) {
-                return redirect()->route('admin.users.index')->withErrors('User not found');
+                return redirect()->route('manage.users.index')->withErrors('User not found');
             }
             $user->delete();
-            return redirect()->route('admin.users.index');
+            return redirect()->route('manage.users.index');
         } catch (\Throwable $e) {
-            return redirect()->route('admin.users.index')->withErrors('Name not found');
+            return redirect()->route('manage.users.index')->withErrors('Name not found');
         }
     }
 
