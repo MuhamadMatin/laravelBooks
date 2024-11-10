@@ -59,7 +59,7 @@ class ChapterController extends Controller implements HasMiddleware
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreChapterRequest $request)
+    public function store(StoreChapterRequest $request, $book)
     {
         try {
             $validated = $request->validated();
@@ -68,7 +68,12 @@ class ChapterController extends Controller implements HasMiddleware
             Chapter::create($validated);
             return redirect()->route('manage.books.index');
         } catch (\Throwable $e) {
-            return redirect()->route('manage.books.chapters.create')->withErrors($e);
+            return redirect()->route(
+                'manage.books.chapters.create',
+                [
+                    'book' => $validated['book_id']
+                ]
+            )->withErrors($e->getMessage());
         }
     }
 
@@ -115,7 +120,7 @@ class ChapterController extends Controller implements HasMiddleware
             return redirect()->route('manage.books.chapters.edit', [
                 'book' => $book,
                 'chapter' => $chapter,
-            ])->withErrors($e);
+            ])->withErrors($e->getMessage());
         }
     }
 

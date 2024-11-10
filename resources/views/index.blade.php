@@ -23,7 +23,7 @@
                 </a>
             </div>
         @endif
-        @if ($mostLikes)
+        {{-- @if ($mostLikes)
             <div class="py-5">
                 <h1 class="my-3 text-3xl font-semibold">Most Likes Books</h1>
                 @include('books.bookpage', ['books' => $mostLikes])
@@ -32,7 +32,7 @@
                     href="{{ route('books.index') }}">Let's Read Another Amazing Books
                 </a>
             </div>
-        @endif
+        @endif --}}
         @if ($comings)
             <h2 class="mt-10 mb-3 text-3xl font-semibold">Coming Soon Books</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-14">
